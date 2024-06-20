@@ -10,7 +10,7 @@ exibirMenu()
 
 function exibirMenu(){
     console.log(`
-    Menu:
+    -*- Lembretes -*-
     1. Adicionar lembrete
     2. Listar lembretes
     3. Editar lembrete
@@ -42,3 +42,17 @@ function exibirMenu(){
         }
     })
 }
+
+        function adicionarLembrete() {
+            rl.question('Digite o seu lembrete aqui: ', (lembrete) => {
+                rl.question('Qual é o prazo para fazer isso? ', (prazo) => {
+                    lembretes.push({ nome: lembrete, 
+                    prazo:prazo
+                    })
+                    console.log('Lembrete adicionado com sucesso!')
+                    exibirMenu()
+                    })
+                })
+            }
+        
+        

@@ -66,3 +66,43 @@ function listarLembrete() {
     }
     exibirMenu()
   }
+
+function editar() {
+    rl.question ('digite o numero do elemento que voçe deseja listar:', (numero) => {
+        rl.question('digite a novo lembrete 1:',(lembrete1) =>{
+            rl.question('digite um novo nome 2:',(lembrete2) =>{
+                rl.question('digite a no 3:',(lembrete3) =>{
+                    vetor[ numero-1] ={
+                        nome1,
+                        nome2,
+                        
+                    }
+                    console.log('editado com sucesso!')
+                    exibirMenu()
+                })
+            }) 
+        })
+
+    })
+}
+
+    
+
+    
+
+    
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        

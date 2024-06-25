@@ -6,11 +6,12 @@ const rl = readline.createInterface({
 })
 
 let lembretes = []
+let feito
 exibirMenu()
 
 function exibirMenu(){
     console.log(`
-  -*- Lembretes -*-
+    - Lembretes -
     1. Adicionar lembrete
     2. Listar lembretes
     3. Editar lembrete
@@ -33,7 +34,7 @@ function exibirMenu(){
                 lembreteConcluido()
                 break
             case '5':
-                rl.close
+                rl.close()
                 break
             default:
                 console.log('Opção inválida, tente novamente')
@@ -46,7 +47,7 @@ function exibirMenu(){
 function adicionarLembrete() {
     rl.question('Digite o seu lembrete aqui: ', (lembrete) => {
         rl.question('Qual é o prazo para fazer isso? ', (prazo) => {
-            lembretes.push({ nome: lembrete, prazo: prazo
+            lembretes.push({ nome: lembrete, prazo: prazo, concluido: false
             })
                 console.log('Lembrete adicionado com sucesso!')
                 exibirMenu()
@@ -60,49 +61,66 @@ function listarLembrete() {
     } else {
       console.log('Lista de lembretes: ')
       lembretes.forEach((lembrete, index) => {
+        if(lembrete.concluido == false){
+            feito = 'Não'
+        } else if (lembrete.concluido == true){
+            feito = 'Sim'
+        }
       console.log(`${index + 1}. Nome: ${lembrete.nome}.
-   Prazo: ${lembrete.prazo}.`)
+   Prazo: ${lembrete.prazo}.
+   Concluido: ${feito}`)
       })
     }
     exibirMenu()
   }
 
-function editar() {
-    rl.question ('digite o numero do elemento que voçe deseja listar:', (numero) => {
-        rl.question('digite a novo lembrete 1:',(lembrete1) =>{
-            rl.question('digite um novo nome 2:',(lembrete2) =>{
-                rl.question('digite a no 3:',(lembrete3) =>{
-                    vetor[ numero-1] ={
-                        nome1,
-                        nome2,
-                        
-                    }
-                    console.log('editado com sucesso!')
-                    exibirMenu()
-                })
-            }) 
+function editarLembrete() {
+    if(lembretes.length == 0){
+        console.log("Nenhum lembrete cadastrado")
+        exibirMenu()
+    } else {
+        console.log('Lista de lembretes: ')
+        lembretes.forEach((lembrete, index) => {
+            console.log(`${index + 1}. ${lembrete.nome}`)
         })
-
-    })
+        rl.question ('Digite o numero do lembrete que deseja editar: ', (numero) => {
+            if(numero > 0 && numero <= lembretes.length){
+                rl.question('Digite a novo lembrete: ', (nome) => {
+                    rl.question('Digite o novo prazo: ', (prazo) => {
+                        lembretes[numero - 1] = {
+                            nome,
+                            prazo,
+                        }
+                        console.log('Editado com sucesso!')
+                        exibirMenu()
+                    })
+                })
+            } else {
+                console.log('Número inválido, tente novamente.')
+                exibirMenu()
+            }
+        })
+    }
 }
 
-    
-
-    
-
-    
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+function lembreteConcluido() {
+    if(lembretes.length == 0){
+        console.log("Nenhum lembrete cadastrado")
+        exibirMenu()
+    } else {
+        console.log('Lista de lembretes: ')
+        lembretes.forEach((lembrete, index) => {
+            console.log(`${index + 1}. ${lembrete.nome}`)
+        })
+        rl.question('Digite o número do lembrete concluído: ', (numero) => {
+            if(numero > 0 && numero <= lembretes.length){
+                    lembretes[numero - 1].concluido = true
+                    console.log('Lembrete concluído com sucesso!')
+                    exibirMenu()
+            } else {
+                console.log('Número inválido, tente novamente.')
+                exibirMenu()
+            }
+        })
+    }
+}
